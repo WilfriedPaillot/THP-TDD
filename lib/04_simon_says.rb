@@ -17,3 +17,8 @@ end
 def first_word(string)
   string.split[0]
 end
+
+def titleize(string)
+  dictionnary = ["the", "and", "a", "an"]
+  string.capitalize.split.map {|i| dictionnary.include?(i) ? i : i.capitalize}.join(" ")
+end
