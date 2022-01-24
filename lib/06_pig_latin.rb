@@ -47,7 +47,29 @@ end
 #! puts squ("square")
 
 # Many words : Ensemble des autres methodes
-def manyWords(string)
-
-end
-puts manyWords("the quick brown fox")
+def translate(string)
+  # si string compte 2 mots
+  if string.split.length == 2
+    # on applique les methodes de 2 mots
+    twoWords(string)
+  else
+    string.split.map do |word|
+      if word[0] =~ /[aeiou]/
+        oneVowel(word)
+      elsif word[0] =~ /[bcdfghjklmnpqrstvwxyz]/
+          oneConsonant(word)
+        if word[0..1] =~ /[bcdfghjklmnpqrstvwxyz]/
+          twoConsonants(word)
+        else word[0..2] =~ /[bcdfghjklmnpqrstvwxyz]/
+          threeConsonants(word)
+        end
+      elsif word[0..2] == "sch"
+        sch(word)
+      elsif word[0..1] == "qu"
+        qu(word)
+      elsif word[0..2] == "squ"
+        squ(word)
+      end
+    end.join(" ")
+  end #end if == 2
+end #end def
