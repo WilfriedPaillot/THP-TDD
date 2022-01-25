@@ -54,22 +54,21 @@ def translate(string)
     twoWords(string)
   else
     string.split.map do |word|
-      if word[0] =~ /[aeiou]/
-        oneVowel(word)
-      elsif word[0] =~ /[bcdfghjklmnpqrstvwxyz]/
-          oneConsonant(word)
-        if word[0..1] =~ /[bcdfghjklmnpqrstvwxyz]/
-          twoConsonants(word)
-        else word[0..2] =~ /[bcdfghjklmnpqrstvwxyz]/
-          threeConsonants(word)
-        end
+      if word[0] =~ /[aeiouy]/
+          oneVowel(word)
       elsif word[0..2] == "sch"
         sch(word)
       elsif word[0..1] == "qu"
         qu(word)
-      elsif word[0..2] == "squ"
-        squ(word)
+      elsif word[0..2] =~ /^[bcdfghjklmnpqrstvwxz]{2}[qu]/
+        squ(string)
+      elsif word[0..2] =~ /^[bcdfghjklmnpqrstvwxz]{3}/
+          threeConsonants(word)
+      elsif word[0..1] =~ /^[bcdfghjklmnpqrstvwxz]{2}/
+          twoConsonants(word)
+      else word[0] =~ /^[bcdfghjklmnpqrstvwxz]{1}/
+          oneConsonant(word)
       end
     end.join(" ")
-  end #end if == 2
-end #end def
+    end
+end
